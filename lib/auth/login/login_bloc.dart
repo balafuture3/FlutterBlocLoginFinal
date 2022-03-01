@@ -12,9 +12,9 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
   // @override
   // Stream<void> onEvent(LoginEvent event) async* {
   //   if (event is LoginUsernameChanged) {
-  //     yield state.copyWith(username: event.username);
+  //     // yield state.copyWith(username: event.username);
   //   } else if (event is LoginPasswordChanged) {
-  //     yield state.copyWith(password: event.password);
+  //     // yield state.copyWith(password: event.password);
   //   } else if (event is LoginSubmitted) {
   //     yield state.copyWith(formstatus: FormSubmitting());
   //     try {
@@ -42,6 +42,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         await authRepo.login();
         yield state.copyWith(formstatus: SubmitSuccess());
       } on Exception catch (e) {
+        print("dsfdsfds");
         yield state.copyWith(formstatus: SubmitFailed(e));
       }
     }

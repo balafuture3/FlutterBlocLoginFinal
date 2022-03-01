@@ -29,8 +29,8 @@ class _LoginViewState extends State<LoginView> {
     return BlocListener<LoginBloc, LoginState>(
       listener: (context, state) {
         final formStatus = state.formstatus;
-        if (state.formstatus is SubmitFailed) {
-          showsnackBar(context, formStatus.toString());
+        if (formStatus is SubmitFailed) {
+          showsnackBar(context, formStatus.exception.toString());
         }
         // TODO: implement listener
       },
