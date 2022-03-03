@@ -14,6 +14,8 @@ class LoginView extends StatefulWidget {
 }
 
 class _LoginViewState extends State<LoginView> {
+  var UsernameController= TextEditingController();
+  var PasswordController= TextEditingController();
   final _formKey = GlobalKey<FormState>();
 
   @override
@@ -51,11 +53,17 @@ class _LoginViewState extends State<LoginView> {
     return BlocBuilder<LoginBloc, LoginState>(
       builder: (context, state) {
         return TextFormField(
+          controller: PasswordController,
           obscureText: true,
+
+
           decoration: const InputDecoration(
+            // errorText:  !state.isValidPass ?"Password is too short":null,
               hintText: "Password", icon: Icon(Icons.security)),
           validator: (value) =>
               state.isValidPass ? null : "Password is too short",
+
+
           onChanged: (value) {
             context
                 .read<LoginBloc>()
@@ -70,7 +78,9 @@ class _LoginViewState extends State<LoginView> {
     return BlocBuilder<LoginBloc, LoginState>(
       builder: (context, state) {
         return TextFormField(
+          controller: UsernameController,
           decoration: const InputDecoration(
+            // errorText: state.isValidUsername?null : "Username is too short",
               hintText: "Username", icon: Icon(Icons.person)),
           validator: (value) =>
               state.isValidUsername ? null : "Username is too short",
@@ -98,7 +108,7 @@ class _LoginViewState extends State<LoginView> {
 
                   print(_formKey.currentState!.validate());
                   if (_formKey.currentState!.validate()) {
-                    context.read<LoginBloc>().add(LoginSubmitted());
+                    context.read<LoginBloc>().add(LoginSubmitted(username: UsernameController.text,password: PasswordController.text));
                   }
                 },
                 child: const Text("Login"));
