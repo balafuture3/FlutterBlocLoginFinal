@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loginwithbloc/auth/auth_repository.dart';
 import 'package:loginwithbloc/auth/login/login_view.dart';
+import 'package:loginwithbloc/dashboard/dashboard_screen.dart';
 
 void main() {
   runApp(const MyApp());

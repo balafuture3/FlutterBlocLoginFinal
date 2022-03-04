@@ -5,6 +5,7 @@ import 'package:loginwithbloc/auth/form_submission_status.dart';
 import 'package:loginwithbloc/auth/login/login_bloc.dart';
 import 'package:loginwithbloc/auth/login/login_event.dart';
 import 'package:loginwithbloc/auth/login/login_state.dart';
+import 'package:loginwithbloc/dashboard/dashboard_screen.dart';
 
 class LoginView extends StatefulWidget {
   const LoginView({Key? key}) : super(key: key);
@@ -31,7 +32,10 @@ class _LoginViewState extends State<LoginView> {
     return BlocListener<LoginBloc, LoginState>(
       listener: (context, state) {
         final formStatus = state.formstatus;
-        if (formStatus is SubmitFailed) {
+        if (formStatus is SubmitSuccess) {
+          Navigator.push(context, MaterialPageRoute(builder: (builder)=>const Dashboard()));
+        }
+       else if (formStatus is SubmitFailed) {
           showsnackBar(context, formStatus.exception.toString());
         }
         // TODO: implement listener

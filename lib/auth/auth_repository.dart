@@ -12,7 +12,7 @@ class AuthRepository {
     throw Exception('Failes Login');
   }
 
-  Future<String> LoginAPI(email, password) async {
+  Future<Response> LoginAPI(email, password) async {
     var url;
 
     url = Uri.parse("http://36.255.253.10:4200/Login");
@@ -33,7 +33,7 @@ class AuthRepository {
       },
     );
     print(response.body);
-    return response.body;
+    return response;
 
   }
 }
