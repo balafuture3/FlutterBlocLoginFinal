@@ -23,7 +23,7 @@ class _LoginViewState extends State<LoginView> {
   Widget build(BuildContext context) {
     return Scaffold(
         body: BlocProvider(
-      create: (context) => LoginBloc(context.read<AuthRepository>()),
+      create: (context) => LoginBloc(context.read<AuthRepository>())..add(LoginSubmitted(username: "username", password: "password")),
       child: _loginForm(),
     ));
   }
