@@ -1,15 +1,20 @@
+import 'package:loginwithbloc/dashboard/Model/DashboardModel.dart';
+
 import 'dashboard_status.dart';
 
 class DashboardState
 {
   final DashBoardStatus  formstatus;
-  DashboardState({ this.formstatus= const DashboardInital()});
+  final DashboardModel dashboardModel;
+  DashboardState( { this.formstatus= const DashboardInital(),required this.dashboardModel});
   DashboardState copyWith({
-  DashBoardStatus formstatus =const DashboardInital()
+  DashBoardStatus formstatus =const DashboardInital(),
+    required DashboardModel  dashboardModel
   })
   {
     return DashboardState(
-        formstatus: formstatus
+        formstatus: formstatus, dashboardModel: dashboardModel,
+
     );
   }
 

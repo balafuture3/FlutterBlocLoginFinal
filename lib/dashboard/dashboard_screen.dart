@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -45,19 +46,16 @@ if (kDebugMode) {
       appBar: AppBar(title: const Text("Dashboard"),),
       body:BlocProvider(
 
-    create: (context) => DahboardBloc(context.read<DashRepository>())..add(DashInit()),
+    create: (context) => DahboardBloc(context.read<DashRepository>(),widget.id)..add(DashInit(widget.id)),
     child:BlocBuilder<DahboardBloc,DashboardState>(
         builder: (context, state) {
-          return SingleChildScrollView(
-            child: Column(
-              children: [
-                InkWell(
-                    onTap: () {
-                      context.read<DahboardBloc>().add(DashInit());
-                    },
-                    child: Text("Test"))
-              ],
-            ),
+
+          return state.formstatus is DashboardInital?Center(child: CircularProgressIndicator(),):state.formstatus is DashSubmitted ?Center(child: CupertinoActivityIndicator(),):ListView(
+            children: [
+              for(int i=0;i<state.dashboardModel.result!.length;i++)
+                ListTile(title: Text(state.dashboardModel.result![i].cUSNAME.toString()),subtitle: Text(state.dashboardModel.result![i].dOCNO.toString()),)
+
+            ],
           );
         }
     )));

@@ -15,7 +15,7 @@ class AuthRepository {
   Future<Response> LoginAPI(email, password) async {
     var url;
 
-    url = Uri.parse("http://36.255.253.10:4200/Login");
+    url = Uri.parse("http://36.255.253.10:4201/Login");
 
     print(url);
 

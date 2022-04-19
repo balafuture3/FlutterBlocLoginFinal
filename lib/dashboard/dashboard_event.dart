@@ -4,5 +4,6 @@ abstract class DashboardEvent
 }
 class DashInit extends DashboardEvent
 {
-DashInit();
+  String id;
+DashInit(this.id);
 }
