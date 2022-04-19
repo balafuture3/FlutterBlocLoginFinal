@@ -17,6 +17,7 @@ class DahboardBloc extends Bloc<DashboardEvent,DashboardState>
   final DashRepository dashRepo;
   final String id;
    DashboardModel li= DashboardModel(status: 0,result: []);
+   DashboardModel li2= DashboardModel(status: 0,result: []);
 
 
   DahboardBloc(this.dashRepo,this.id) : super(DashboardState(formstatus:  DashboardInital(),dashboardModel: DashboardModel(status: 0,result: [])))
@@ -33,8 +34,15 @@ class DahboardBloc extends Bloc<DashboardEvent,DashboardState>
    // await Future.delayed(Duration(seconds: 3));
   await  dashRepo.DahboardApi(id,(int.parse(event.offset)-1)*20).then((value)
     {
-li.result?.clear();
+// li.result?.clear();
+    if(li.result!.isEmpty) {
       li=DashboardModel.fromJson(jsonDecode(value.body));
+    } else {
+      li2=DashboardModel.fromJson(jsonDecode(value.body));
+      for(int i=0;i<li2.result!.length;i++) {
+        li.result?.add(li2.result![i]);
+      }
+    }
       print("inside");
       // print(page);
       print(json.encode(li));
