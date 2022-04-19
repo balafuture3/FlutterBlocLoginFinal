@@ -30,7 +30,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       home: RepositoryProvider(
-          create: (context) => AuthRepository(), child: const Dashboard()),
+          create: (context) => AuthRepository(), child: const LoginView()),
     );
   }
 }

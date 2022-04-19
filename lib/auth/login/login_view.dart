@@ -5,6 +5,7 @@ import 'package:loginwithbloc/auth/form_submission_status.dart';
 import 'package:loginwithbloc/auth/login/login_bloc.dart';
 import 'package:loginwithbloc/auth/login/login_event.dart';
 import 'package:loginwithbloc/auth/login/login_state.dart';
+import 'package:loginwithbloc/dashboard/dash_repository.dart';
 import 'package:loginwithbloc/dashboard/dashboard_screen.dart';
 
 class LoginView extends StatefulWidget {
@@ -23,7 +24,7 @@ class _LoginViewState extends State<LoginView> {
   Widget build(BuildContext context) {
     return Scaffold(
         body: BlocProvider(
-      create: (context) => LoginBloc(context.read<AuthRepository>())..add(LoginSubmitted(username: "username", password: "password")),
+      create: (context) => LoginBloc(context.read<AuthRepository>()),//..add(LoginSubmitted(username: "username", password: "password")),
       child: _loginForm(),
     ));
   }
@@ -33,7 +34,8 @@ class _LoginViewState extends State<LoginView> {
       listener: (context, state) {
         final formStatus = state.formstatus;
         if (formStatus is SubmitSuccess) {
-          Navigator.push(context, MaterialPageRoute(builder: (builder)=>const Dashboard()));
+          Navigator.push(context, MaterialPageRoute(builder: (builder)=>RepositoryProvider(
+              create: (context) => DashRepository(), child: const Dashboard())));
         }
        else if (formStatus is SubmitFailed) {
           showsnackBar(context, formStatus.exception.toString());

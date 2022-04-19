@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loginwithbloc/auth/auth_repository.dart';
 import 'package:loginwithbloc/auth/login/login_bloc.dart';
 import 'package:loginwithbloc/auth/login/login_event.dart';
+import 'package:loginwithbloc/dashboard/dash_repository.dart';
 import 'package:loginwithbloc/dashboard/dashboard_bloc.dart';
 import 'package:loginwithbloc/dashboard/dashboard_state.dart';
 
@@ -21,32 +22,41 @@ class _DashboardState extends State<Dashboard> {
 
   @override
   void initState() {
-    // dahboardBloc = BlocProvider.of<DahboardBloc>(context);
-    // dahboardBloc.stream.listen((state) {
-    //   if (state is DashInit) {
-    //
-    //     print('listening to bloc');
-    //   }
-    // });
+
     // TODO: implement initState
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
+    // context.read<DahboardBloc>().add(DashInit());
+    // dahboardBloc.stream.listen((state) {
+    //   if (state is DashInit) {
+    //
+    //     print('listening to bloc');
+    //   }
+    // });
 
     return Scaffold(
       appBar: AppBar(title: const Text("Dashboard"),),
       body:BlocProvider(
-    create: (context) { return DahboardBloc(context.read<AuthRepository>())..add(DashInit());},
-    child: SingleChildScrollView(
+
+    create: (context) => DahboardBloc(context.read<DashRepository>())..add(DashInit()),
+    child:BlocBuilder<DahboardBloc,DashboardState>(
+        builder: (context, state) {
+          return SingleChildScrollView(
             child: Column(
-              children: const [
-                Text("Test")
+              children: [
+                InkWell(
+                    onTap: () {
+                      context.read<DahboardBloc>().add(DashInit());
+                    },
+                    child: Text("Test"))
               ],
             ),
-          ),
-    ));
+          );
+        }
+    )));
 
   }
 }
