@@ -36,7 +36,7 @@ cnt++;
   @override
   void initState() {
     controller =  ScrollController()..addListener(_scrollListener);
-    dahboardBloc = DahboardBloc(DashRepository(), widget.id);
+    dahboardBloc = DahboardBloc(DashRepository(), widget.id)..add(DashInit(widget.id, "1"));
 if (kDebugMode) {
   print("id${widget.id}");
 }
@@ -60,6 +60,8 @@ if (kDebugMode) {
 
     create: (context) => DahboardBloc(context.read<DashRepository>(),widget.id)..add(DashInit(widget.id,"1")),
     child:BlocBuilder<DahboardBloc,DashboardState>(
+      bloc: dahboardBloc,
+      // bloc: DahboardBloc(DashRepository(),widget.id),
         builder: (context, state) {
           return state.formstatus is DashboardInital?const Center(child:  CircularProgressIndicator(),):state.formstatus is DashSubmitted ?const Center(child:   CupertinoActivityIndicator(),):
           ListView.builder(
