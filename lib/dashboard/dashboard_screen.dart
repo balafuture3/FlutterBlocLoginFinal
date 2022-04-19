@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:loginwithbloc/auth/auth_repository.dart';
@@ -11,7 +12,8 @@ import 'dashboard_event.dart';
 import 'dashboard_status.dart';
 
 class Dashboard extends StatefulWidget {
-  const Dashboard({Key? key}) : super(key: key);
+   Dashboard({Key? key , required this.id}) : super(key: key);
+   String id;
 
   @override
   _DashboardState createState() => _DashboardState();
@@ -22,7 +24,9 @@ class _DashboardState extends State<Dashboard> {
 
   @override
   void initState() {
-
+if (kDebugMode) {
+  print("id${widget.id}");
+}
     // TODO: implement initState
     super.initState();
   }

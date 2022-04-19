@@ -35,7 +35,7 @@ class _LoginViewState extends State<LoginView> {
         final formStatus = state.formstatus;
         if (formStatus is SubmitSuccess) {
           Navigator.push(context, MaterialPageRoute(builder: (builder)=>RepositoryProvider(
-              create: (context) => DashRepository(), child: const Dashboard())));
+              create: (context) => DashRepository(), child: Dashboard(id:state.id,))));
         }
        else if (formStatus is SubmitFailed) {
           showsnackBar(context, formStatus.exception.toString());

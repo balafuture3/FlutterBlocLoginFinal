@@ -15,8 +15,9 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
   final AuthRepository authRepo;
 
  late LoginModel liLogin;
+ late String userid;
 
-  LoginBloc(this.authRepo) : super(LoginState(username: '', password: ''))
+  LoginBloc(this.authRepo) : super(LoginState(username: '', password: '',id: ''))
   {
     // TODO: No need registration of this bloc in Old Bloc
     on<LoginPasswordChanged>(_onPasswordChanged);
@@ -65,7 +66,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
 
               print(liLogin.status);
               if (liLogin.status == 1) {
-                emit(state.copyWith(formstatus: SubmitSuccess()));
+                emit(state.copyWith(formstatus: SubmitSuccess(),id:liLogin.userid.toString() ));
                 }
               else {
                 emit( state.copyWith(formstatus: SubmitFailed( Exception("Failed"))));
