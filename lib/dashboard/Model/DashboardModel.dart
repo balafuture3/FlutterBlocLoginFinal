@@ -36,12 +36,12 @@ class Result {
   String? qUOTTYPE;
   int? cREADTEDBY;
   String? cREATEDDATE;
-  Null? mODIFIEDDATE;
+  String? mODIFIEDDATE;
   String? tOTAL2;
   String? gRANDTOTAL;
   String? tRCHARGES;
   String? lOCHARGES;
-  Null? iNSCHARGES;
+  String? iNSCHARGES;
   String? cARDCODE;
   String? cUSCODE;
 

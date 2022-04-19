@@ -7,7 +7,7 @@ import 'package:http/http.dart';
 class DashRepository {
 
 
-  Future<Response> DahboardApi(id) async {
+  Future<Response> DahboardApi(id,offset) async {
     var url;
 
     url = Uri.parse("http://36.255.253.10:4201/QuotReportFilter");
@@ -17,7 +17,7 @@ class DashRepository {
 
     Map data = {
       "docno":id,
-      "offset":"0",
+      "offset":offset,
       "search":""
     };
     print(jsonEncode(data));

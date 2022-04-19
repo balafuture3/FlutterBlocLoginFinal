@@ -6,9 +6,9 @@ class DashboardState
 {
   final DashBoardStatus  formstatus;
   final DashboardModel dashboardModel;
-  DashboardState( { this.formstatus= const DashboardInital(),required this.dashboardModel});
+  DashboardState( { required this.formstatus,required this.dashboardModel});
   DashboardState copyWith({
-  DashBoardStatus formstatus =const DashboardInital(),
+  required formstatus,
     required DashboardModel  dashboardModel
   })
   {

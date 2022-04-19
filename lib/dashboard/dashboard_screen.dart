@@ -21,10 +21,22 @@ class Dashboard extends StatefulWidget {
 }
 
 class _DashboardState extends State<Dashboard> {
-  late DahboardBloc dahboardBloc;
+  int cnt=2;
+  late DahboardBloc dahboardBloc ;
+  late ScrollController controller;
+  void _scrollListener() {
 
+    if (controller.position.pixels ==
+        controller.position.maxScrollExtent) {
+      dahboardBloc.add( DashInit(widget.id,cnt.toString()));
+      print("sdfdsf");
+cnt++;
+    }
+  }
   @override
   void initState() {
+    controller =  ScrollController()..addListener(_scrollListener);
+    dahboardBloc = DahboardBloc(DashRepository(), widget.id);
 if (kDebugMode) {
   print("id${widget.id}");
 }
@@ -46,16 +58,23 @@ if (kDebugMode) {
       appBar: AppBar(title: const Text("Dashboard"),),
       body:BlocProvider(
 
-    create: (context) => DahboardBloc(context.read<DashRepository>(),widget.id)..add(DashInit(widget.id)),
+    create: (context) => DahboardBloc(context.read<DashRepository>(),widget.id)..add(DashInit(widget.id,"1")),
     child:BlocBuilder<DahboardBloc,DashboardState>(
         builder: (context, state) {
+          return state.formstatus is DashboardInital?const Center(child:  CircularProgressIndicator(),):state.formstatus is DashSubmitted ?const Center(child:   CupertinoActivityIndicator(),):
+          ListView.builder(
+            itemCount: state.dashboardModel.result!.length,
+            controller: controller,
+              itemBuilder: (BuildContext context, int i) {
+                return ListTile(
+                  onTap: (){
+                    dahboardBloc.add( DashInit(widget.id,cnt.toString()));
+                    print(state.dashboardModel.result![i].cUSNAME.toString());
+                  },
+                  title: Text(state.dashboardModel.result![i].cUSNAME.toString()),subtitle: Text(state.dashboardModel.result![i].dOCNO.toString()),);
 
-          return state.formstatus is DashboardInital?Center(child: CircularProgressIndicator(),):state.formstatus is DashSubmitted ?Center(child: CupertinoActivityIndicator(),):ListView(
-            children: [
-              for(int i=0;i<state.dashboardModel.result!.length;i++)
-                ListTile(title: Text(state.dashboardModel.result![i].cUSNAME.toString()),subtitle: Text(state.dashboardModel.result![i].dOCNO.toString()),)
+          },
 
-            ],
           );
         }
     )));

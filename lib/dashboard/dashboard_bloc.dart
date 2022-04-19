@@ -16,7 +16,8 @@ class DahboardBloc extends Bloc<DashboardEvent,DashboardState>
 {
   final DashRepository dashRepo;
   final String id;
-  late  DashboardModel li;
+   DashboardModel li= DashboardModel(status: 0,result: []);
+
 
   DahboardBloc(this.dashRepo,this.id) : super(DashboardState(formstatus:  DashboardInital(),dashboardModel: DashboardModel(status: 0,result: [])))
   {
@@ -24,18 +25,21 @@ class DahboardBloc extends Bloc<DashboardEvent,DashboardState>
   }
 
 
-  Future<FutureOr<void>> _dashInitMethod(DashInit event, Emitter<DashboardState> emit) async {
+  Future<FutureOr<void>> _dashInitMethod(DashInit event, Emitter<DashboardState> emit,) async {
     if (kDebugMode) {
       print("dasgh");
     }
     emit(state.copyWith(formstatus: DashSubmitted(),dashboardModel: DashboardModel(status: 0,result: [])));
-  await  dashRepo.DahboardApi(id).then((value)
+   // await Future.delayed(Duration(seconds: 3));
+  await  dashRepo.DahboardApi(id,(int.parse(event.offset)-1)*20).then((value)
     {
+li.result?.clear();
       li=DashboardModel.fromJson(jsonDecode(value.body));
       print("inside");
+      // print(page);
       print(json.encode(li));
           });
-    emit(state.copyWith(formstatus:  DashSuccess(),dashboardModel: li));
+    emit(state.copyWith(dashboardModel: li,formstatus: DashSuccess(),));
 
 
 
